@@ -6,8 +6,8 @@ ROS_image::ROS_image(Shared_memory* shared_memory): it_(nh_)
 //    image_sub_ = it_.subscribe("image_raw", 1, &ROS_image::imageCb, this);
 
     this->shared_memory = shared_memory;
-    image_sub_compress_ = it_.subscribe("image_raw_compress", 1, &ROS_image::imageCompressCb, this);
-
+    //image_sub_compress_ = it_.subscribe("image_raw_compress", 1, &ROS_image::imageCompressCb, this);
+    image_sub_ = it_.subscribe("/camera/image", 1, &ROS_image::imageCb, this);
 }
 
 ROS_image::~ROS_image()
