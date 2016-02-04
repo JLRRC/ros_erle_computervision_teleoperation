@@ -5,8 +5,8 @@ Thread_ROS::Thread_ROS(Shared_memory* share_memory)
     this->share_memory = share_memory;
 
     ros::NodeHandle n;
-    rc_override_pub = n.advertise< mavros::OverrideRCIn >("/mavros/rc/override", 10);
-    cl_param = n.serviceClient<mavros::ParamGet>("/mavros/param/get");
+    rc_override_pub = n.advertise< mavros_msgs::OverrideRCIn >("/mavros/rc/override", 10);
+    cl_param = n.serviceClient<mavros_msgs::ParamGet>("/mavros/param/get");
 
     std::vector<int> rc_maxlimtis;
     std::vector<int> rc_minlimtis;
@@ -28,15 +28,15 @@ Thread_ROS::Thread_ROS(Shared_memory* share_memory)
 
 int Thread_ROS::RC_Param(std::string s, int i)
 {
-    mavros::ParamGet srv;
+    mavros_msgs::ParamGet srv;
     std::stringstream ss;
     ss << (i+1);
     std::string param = std::string("RC") + ss.str() + s;
     srv.request.param_id = param;
     if(cl_param.call(srv)){
-        ROS_INFO("send ok %d value: %d", srv.response.success, srv.response.integer);
+        ROS_INFO("send ok %d value: %lld", srv.response.success, srv.response.value.integer);
         if(srv.response.success)
-            return srv.response.integer;
+            return srv.response.value.integer;
         else
             return -1;
     }else{
@@ -60,7 +60,7 @@ void Thread_ROS::run()
 
         share_memory->update();
 
-        mavros::OverrideRCIn msg_override;
+        mavros_msgs::OverrideRCIn msg_override;
         msg_override.channels[0] = share_memory->getPitch();
         msg_override.channels[1] = share_memory->getRoll();
         msg_override.channels[2] = share_memory->getThrottle();

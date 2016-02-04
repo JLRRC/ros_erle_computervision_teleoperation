@@ -2,7 +2,7 @@
 #define MAVROS_SETSTREAMRATE_H
 
 #include <ros/ros.h>
-#include <mavros/StreamRate.h>
+#include <mavros_msgs//StreamRate.h>
 
 class MAVROS_setStreamRate
 {

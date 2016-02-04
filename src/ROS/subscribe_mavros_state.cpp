@@ -7,7 +7,7 @@ Subscribe_mavros_state::Subscribe_mavros_state()
     }
 }
 
-void Subscribe_mavros_state::mavrosStateCb(const mavros::StateConstPtr &msg)
+void Subscribe_mavros_state::mavrosStateCb(const mavros_msgs::StateConstPtr &msg)
 {
     ROS_INFO("I heard: [%s] [%d] [%d]", msg->mode.c_str(), msg->armed, msg->guided);
     pthread_mutex_lock( &mutex );

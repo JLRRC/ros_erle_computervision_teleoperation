@@ -162,12 +162,14 @@ double ColorFilter::getV(double r, double g, double b)
 int ColorFilter::lineinimage(cv::Mat& image, int xa, int ya, int xb, int yb)
 {
     cv::line(image, cv::Point(xa, ya), cv::Point(xb,yb), cv::Scalar(0, 0, 0), 1);
+    return 0;
 }
 
 /*Draw hsv cheese functions*/
 int ColorFilter::drawcircle(cv::Mat& image, int xcentro, int ycentro, int radio)
 {
     cv::circle(image, cv::Point(xcentro, ycentro), radio, cv::Scalar(0, 0 ,0));
+    return 0;
 }
 
 int ColorFilter::drawarc(cv::Mat& image, int xcentro, int ycentro, int radio, int x1, int y1, int x2, int y2)
